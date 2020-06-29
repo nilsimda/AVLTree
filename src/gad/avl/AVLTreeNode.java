@@ -44,7 +44,7 @@ public class AVLTreeNode {
                 return 1;
             return left.height() + 1;
         }
-        else if(balance == +1){
+        else {
             if(right == null)
                 return 1;
             return right.height()+1;
