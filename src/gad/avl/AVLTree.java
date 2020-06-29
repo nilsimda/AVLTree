@@ -15,7 +15,7 @@ public class AVLTree {
     }
 
     public boolean validAVL() {
-        return false;
+        return root.validAVL();
     }
 
     public void insert(int key) {

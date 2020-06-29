@@ -1,5 +1,7 @@
 package gad.avl;
 
+import java.net.MalformedURLException;
+
 public class AVLTreeNode {
     private int key;
     private int balance = 0;
@@ -39,7 +41,7 @@ public class AVLTreeNode {
     }
 
     public int height() {
-        if(balance == -1 || balance == 0) {
+        /*if(balance == -1 || balance == 0) {
             if(left == null)
                 return 1;
             return left.height() + 1;
@@ -48,7 +50,15 @@ public class AVLTreeNode {
             if(right == null)
                 return 1;
             return right.height()+1;
-        }
+        }*/
+        if(left == null && right == null)
+            return 1;
+        if(left == null)
+            return right.height() +1;
+        if(right == null)
+            return left.height()+1;
+
+        return Math.max(left.height(), right.height()) +1;
     }
 
     public boolean validAVL() {
