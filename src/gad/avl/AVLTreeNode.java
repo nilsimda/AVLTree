@@ -7,6 +7,7 @@ public class AVLTreeNode {
     private AVLTreeNode right = null;
 
     public AVLTreeNode(int key) {
+        this.key = key;
     }
 
     public AVLTreeNode getLeft() {
@@ -38,7 +39,16 @@ public class AVLTreeNode {
     }
 
     public int height() {
-        return 0;
+        if(balance == -1 || balance == 0) {
+            if(left == null)
+                return 1;
+            return left.height() + 1;
+        }
+        else if(balance == +1){
+            if(right == null)
+                return 1;
+            return right.height()+1;
+        }
     }
 
     public boolean validAVL() {
