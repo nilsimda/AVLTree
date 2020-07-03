@@ -113,7 +113,7 @@ public class AVLTreeNode {
     }
 
     public AVLTreeNode insert(AVLTreeNode node, int key) {
-        if(node == null) {
+        if(node == null) { //standard BST insert
             node = new AVLTreeNode(key);
             return node;
         }
@@ -124,7 +124,7 @@ public class AVLTreeNode {
         }
 
         node.balance = heightHelper(node.right) - heightHelper(node.left);
-
+        //check if current node is unbalanced and rotate accordincgly
         if(node.balance == +2){
             if(node.right.balance >= 0)
                 return leftRotation(node);
@@ -141,7 +141,7 @@ public class AVLTreeNode {
                 return rightRotation(node);
             }
         }
-        return node;
+        return node; //return (new) root
     }
 
     private AVLTreeNode leftRotation(AVLTreeNode root){
@@ -209,17 +209,5 @@ public class AVLTreeNode {
     @Override
     public String toString() {
         return "Node: "+ key;
-    }
-
-    public static void main(String[] args) {
-        AVLTreeNode node1 = new AVLTreeNode(2);
-        AVLTreeNode node2 = new AVLTreeNode( 3);
-        AVLTreeNode node3 = new AVLTreeNode(4);
-        //AVLTreeNode node4 = new AVLTreeNode(5);
-
-        node1.setRight(node2);
-        node1.setLeft(node3);
-
-        //System.out.println(node1.insert(5));
     }
 }
