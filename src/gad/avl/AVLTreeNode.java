@@ -63,24 +63,10 @@ public class AVLTreeNode {
         if(node == null)
             return true;
 
-        int mR = getMaxKey(node, node.key);
-        int mL = getMinKey(node, node.key);
-
-        return mR >= node.key && mL < node.key && isSorted(node.left) && isSorted(node.right);
-    }
-
-    private int getMaxKey(AVLTreeNode root, int key){
-        if(root == null)
-            return key;
-
-        return getMaxKey(root.right, root.key);
-    }
-
-    private int getMinKey(AVLTreeNode root, int key){
-        if(root == null)
-            return key;
-
-        return getMinKey(root.left, root.key);
+        if((node.left != null && node.key <= node.left.key) || (node.right != null && node.key > node.right.key)){
+            return false;
+        }
+        return isSorted(node.left) && isSorted(node.right);
     }
 
     private boolean hasCycle(AVLTreeNode node, HashSet<AVLTreeNode> visited){
@@ -175,11 +161,12 @@ public class AVLTreeNode {
     public static void main(String[] args) {
         AVLTreeNode node1 = new AVLTreeNode(2);
         AVLTreeNode node2 = new AVLTreeNode( 3);
-        AVLTreeNode node3 = new AVLTreeNode(2);
+        AVLTreeNode node3 = new AVLTreeNode(1);
 
         node1.setRight(node2);
+        node1.setLeft(node3);
         //node2.setLeft(node1);
 
-        System.out.println(node1.isSorted());
+        System.out.println(node1.isSorted(node1));
     }
 }
