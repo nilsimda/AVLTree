@@ -1,6 +1,7 @@
 package gad.avl;
 
 import java.net.MalformedURLException;
+import java.util.HashSet;
 
 public class AVLTreeNode {
     private int key;
@@ -51,15 +52,30 @@ public class AVLTreeNode {
     }
 
     public boolean validAVL() {
-        return isBalanced(this) && correctBalanceToHeight();
+        return isBalanced(this) && !hasCycle(this, new HashSet<AVLTreeNode>());
     }
-    private boolean correctBalanceToHeight(){
+    
+    private boolean hasCycle(AVLTreeNode node, HashSet<AVLTreeNode> visited){
+        if(visited.contains(node))
+            return true;
+        visited.add(node);
+        hasCycle(node.left, visited);
+        hasCycle(node.right, visited);
+
         return false;
     }
 
     public static boolean isBalanced(AVLTreeNode node){
-        return false;
+        if(node == null)
+            return true;
 
+        int leftHeight = node.left.height();
+        int rightHeight = node.right.height();
+
+        return Math.abs(rightHeight - leftHeight) >= 1 &&
+                node.balance == rightHeight-leftHeight &&
+                node.left.key < node.key && node.right.key >= node.key &&
+                isBalanced(node.left) && isBalanced(node.right);
     }
 
     public boolean find(int key) {
