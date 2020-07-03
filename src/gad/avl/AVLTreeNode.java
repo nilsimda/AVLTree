@@ -146,9 +146,10 @@ public class AVLTreeNode {
 
     private AVLTreeNode leftRotation(AVLTreeNode root){
         AVLTreeNode temp = root.right;
+        AVLTreeNode temp2 = temp.left;
 
-        root.right = temp.left;
         temp.left = root;
+        root.right = temp2;
 
         root.balance = heightHelper(root.right) - heightHelper(root.left);
         temp.balance = heightHelper(root.right) -heightHelper(root.left);
@@ -158,9 +159,10 @@ public class AVLTreeNode {
 
     private AVLTreeNode rightRotation(AVLTreeNode root){
         AVLTreeNode temp = root.left;
+        AVLTreeNode temp2 = temp.right;
 
-        root.left = temp.right;
         temp.right = root;
+        root.left = temp2;
 
         root.balance = heightHelper(root.right) - heightHelper(root.left);
         temp.balance = heightHelper(root.right) -heightHelper(root.left);
