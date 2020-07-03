@@ -21,8 +21,10 @@ public class AVLTree {
     }
 
     public void insert(int key) {
-        if(root == null)
+        if(root == null) {
             root = new AVLTreeNode(key);
+            return;
+        }
         root = root.insert(key);
     }
 
@@ -57,7 +59,7 @@ public class AVLTree {
         test.insert(5);
         test.insert(3);
         test.insert(4);
-        //test.insert(2);
+        //test.insert(3);
         System.out.println(test.validAVL());
         System.out.println(test.getRoot().getBalance());
 

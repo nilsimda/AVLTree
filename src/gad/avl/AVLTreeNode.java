@@ -177,8 +177,9 @@ public class AVLTreeNode {
         }
         if(key < node.key)
             node.left = basicInsert(node.left, key);
-        else if(key > node.key)
+        else {
             node.right = basicInsert(node.right, key);
+        }
 
         updateBalance(node);
         return node;
