@@ -61,16 +61,16 @@ public class AVLTreeNode {
 
     private boolean isSorted(){
         List<Integer> list = new ArrayList<>();
-        inorderTrav(this, list);
+        inorderTrav(this, list, 0);
         return list.stream().sorted().collect(Collectors.toList()).equals(list);
     }
 
-    private void inorderTrav(AVLTreeNode root, List<Integer> list){
+    private void inorderTrav(AVLTreeNode root, List<Integer> list, int counter){
         if(root == null)
             return;
-        inorderTrav(root.left, list);
-        list.add(root.key);
-        inorderTrav(root.right, list);
+        inorderTrav(root.left, list,counter);
+        list.add(counter++, root.key);
+        inorderTrav(root.right, list, counter);
     }
 
     private boolean hasCycle(AVLTreeNode node, HashSet<AVLTreeNode> visited){
