@@ -41,41 +41,25 @@ public class AVLTreeNode {
     }
 
     public int height() {
-        if(left == null && right == null)
-            return 1;
-        if(left == null)
-            return right.height() +1;
-        if(right == null)
-            return left.height()+1;
-
-        return Math.max(left.height(), right.height()) +1;
+        return heightHelper(this);
+    }
+    public static int heightHelper(AVLTreeNode node){
+        if(node == null)
+            return 0;
+        else
+            return Math.max(heightHelper(node.left), heightHelper(node.right)) +1;
     }
 
     public boolean validAVL() {
-        return isBalanced() && correctBalanceToHeight();
+        return isBalanced(this) && correctBalanceToHeight();
     }
     private boolean correctBalanceToHeight(){
         return false;
     }
 
-    public boolean isBalanced(){
-        int leftHeight = 0;
-        int rightHeight = 0;
-        if(left == null && right == null)
-            return true;
-        else if(left == null)
-            rightHeight = right.height();
-        else if(right == null)
-            leftHeight = left.height();
-        else{
-            leftHeight = left.height();
-            rightHeight = right.height();
-        }
-
-        if(Math.abs(rightHeight-leftHeight) <= 1)
-            return true;
-
+    public static boolean isBalanced(AVLTreeNode node){
         return false;
+
     }
 
     public boolean find(int key) {
