@@ -112,18 +112,72 @@ public class AVLTreeNode {
     }
 
     public AVLTreeNode insert(int key) {
-        return insertHelper(this, key);
+        basicInsert(this, key);
+        int balance = heightHelper(right)-heightHelper(left);
+        if(Math.abs(balance) <= 1)
+            return this;
+        if(balance == +2){
+            if(heightHelper(right.right)- heightHelper(right.left) >= 0)
+                return leftRotation(this);
+            else{
+                AVLTreeNode temp = rightRotation(this.right);
+                return leftRotation(this);
+            }
+        }
+        else{
+            if(heightHelper(left.right) -heightHelper(left.left) <= 0)
+                return rightRotation(this);
+            else{
+                AVLTreeNode temp = leftRotation(this.left);
+                return rightRotation(this);
+            }
+        }
     }
 
-    private AVLTreeNode insertHelper(AVLTreeNode node, int key){
+    private AVLTreeNode leftRotation(AVLTreeNode root){
+        AVLTreeNode temp = root.right;
+
+        root.right = temp.left;
+        temp.left = root;
+
+        updateBalance(temp);
+
+        return temp;
+    }
+
+    private AVLTreeNode rightRotation(AVLTreeNode root){
+        AVLTreeNode temp = root.left;
+
+        root.left = temp.right;
+        temp.right = root;
+
+        updateBalance(temp);
+
+        return temp;
+    }
+
+    private void updateBalance(AVLTreeNode node){
+        if(node == null)
+            return;
+
+        int height = height();
+
+        if(height != balance)
+            balance = height();
+
+        updateBalance(node.left);
+        updateBalance(node.right);
+    }
+
+    private AVLTreeNode basicInsert(AVLTreeNode node, int key){
         if(node == null) {
             node = new AVLTreeNode(key);
             return node;
         }
         if(key < node.key)
-            node.left = insertHelper(node.left, key);
+            node.left = basicInsert(node.left, key);
         else if(key > node.key)
-            node.right = insertHelper(node.right, key);
+            node.right = basicInsert(node.right, key);
 
         return node;
     }
@@ -162,11 +216,11 @@ public class AVLTreeNode {
         AVLTreeNode node1 = new AVLTreeNode(2);
         AVLTreeNode node2 = new AVLTreeNode( 3);
         AVLTreeNode node3 = new AVLTreeNode(4);
+        //AVLTreeNode node4 = new AVLTreeNode(5);
 
         node1.setRight(node2);
         node1.setLeft(node3);
-        //node2.setLeft(node1);
 
-        System.out.println(node1.isSorted(node1, null, null));
+        System.out.println(node1.insert(5));
     }
 }
