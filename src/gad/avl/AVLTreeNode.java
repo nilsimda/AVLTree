@@ -56,6 +56,8 @@ public class AVLTreeNode {
     }
 
     private boolean hasCycle(AVLTreeNode node, HashSet<AVLTreeNode> visited){
+        if(node == null)
+            return false;
         if(visited.contains(node))
             return true;
         visited.add(node);
@@ -65,7 +67,7 @@ public class AVLTreeNode {
         return false;
     }
 
-    public static boolean isBalanced(AVLTreeNode node){
+    private boolean isBalanced(AVLTreeNode node){
         if(node == null)
             return true;
 
@@ -74,7 +76,7 @@ public class AVLTreeNode {
 
         return Math.abs(rightHeight - leftHeight) >= 1 &&
                 node.balance == rightHeight-leftHeight &&
-                node.left.key < node.key && node.right.key >= node.key &&
+                //node.left.key < node.key && node.right.key >= node.key &&
                 isBalanced(node.left) && isBalanced(node.right);
     }
 
