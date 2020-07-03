@@ -161,12 +161,12 @@ public class AVLTreeNode {
     public static void main(String[] args) {
         AVLTreeNode node1 = new AVLTreeNode(2);
         AVLTreeNode node2 = new AVLTreeNode( 3);
-        AVLTreeNode node3 = new AVLTreeNode(1);
+        AVLTreeNode node3 = new AVLTreeNode(4);
 
         node1.setRight(node2);
         node1.setLeft(node3);
         //node2.setLeft(node1);
 
-        System.out.println(node1.isSorted(node1));
+        System.out.println(node1.isSorted(node1, null, null));
     }
 }
