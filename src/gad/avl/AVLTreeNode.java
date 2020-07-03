@@ -160,10 +160,11 @@ public class AVLTreeNode {
         if(node == null)
             return;
 
-        int height = heightHelper(right) - heightHelper(left);
+        int height = heightHelper(node.right) - heightHelper(node.left);
+        //System.out.println(right + " " + left);
 
-        if(height != balance)
-            balance = height;
+        if(height != node.balance)
+            node.balance = height;
 
         updateBalance(node.left);
         updateBalance(node.right);

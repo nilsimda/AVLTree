@@ -56,8 +56,9 @@ public class AVLTree {
         test.insert(1);
         test.insert(2);
         //test.insert(3);
-        System.out.println(test.getRoot().getBalance());
         //test.insert(4);
+        System.out.println(test.validAVL());
+        System.out.println(test.getRoot().getBalance());
         //test.insert(5);
 
         System.out.println(test.dot());
