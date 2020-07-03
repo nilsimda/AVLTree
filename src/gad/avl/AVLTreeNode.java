@@ -77,19 +77,21 @@ public class AVLTreeNode {
             return findHelper(node.left, key);
     }
 
-    public void insert(int key) {
-        insertHelper(this, key);
+    public AVLTreeNode insert(int key) {
+        return insertHelper(this, key);
     }
 
-    private void insertHelper(AVLTreeNode node, int key){
+    private AVLTreeNode insertHelper(AVLTreeNode node, int key){
         if(node == null) {
             node = new AVLTreeNode(key);
-            return;
+            return node;
         }
         if(key < node.key)
-            insertHelper(node.left, key);
-        else
-            insertHelper(node.right, key);
+            node.left = insertHelper(node.left, key);
+        else if(key > node.key)
+            node.right = insertHelper(node.right, key);
+
+        return node;
     }
 
     /**
