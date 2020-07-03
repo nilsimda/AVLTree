@@ -80,7 +80,8 @@ public class AVLTreeNode {
 
         return Math.abs(rightHeight - leftHeight) <= 1 &&
                 node.balance == rightHeight-leftHeight &&
-                //node.left.key < node.key && node.right.key >= node.key &&
+                (node.left == null ||node.left.key < node.key) &&
+                (node.right == null || node.right.key >= node.key) &&
                 isBalanced(node.left) && isBalanced(node.right);
     }
 
