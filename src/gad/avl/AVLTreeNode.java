@@ -8,6 +8,7 @@ public class AVLTreeNode {
     private int balance = 0;
     private AVLTreeNode left = null;
     private AVLTreeNode right = null;
+    private boolean flag = false;
 
     public AVLTreeNode(int key) {
         this.key = key;
@@ -52,19 +53,22 @@ public class AVLTreeNode {
     }
 
     public boolean validAVL() {
-        return !hasCycle(this, new HashSet<AVLTreeNode>()) &&isBalanced(this);
+        return !hasCycle(this, new HashSet<AVLTreeNode>()) && isBalanced(this);
     }
 
     private boolean hasCycle(AVLTreeNode node, HashSet<AVLTreeNode> visited){
+        if(visited.contains(node)) {
+            flag = true;
+            return true;
+        }
         if(node == null)
             return false;
-        if(visited.contains(node))
-            return true;
+
         visited.add(node);
         hasCycle(node.left, visited);
         hasCycle(node.right, visited);
 
-        return false;
+        return flag;
     }
 
     private boolean isBalanced(AVLTreeNode node){
@@ -136,4 +140,14 @@ public class AVLTreeNode {
         sb.append(String.format("\t%d -> %d [label=\"%s\"];\n", idx, next, label));
         return dotNode(sb, next);
     };
+
+    public static void main(String[] args) {
+        AVLTreeNode node1 = new AVLTreeNode(1);
+        AVLTreeNode node2 = new AVLTreeNode( 2);
+
+        node1.setRight(node2);
+        //node2.setLeft(node1);
+
+        System.out.println(node1.hasCycle(node1, new HashSet<>()));
+    }
 }
