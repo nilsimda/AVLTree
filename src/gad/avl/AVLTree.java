@@ -15,6 +15,8 @@ public class AVLTree {
     }
 
     public boolean validAVL() {
+        if(root == null)
+            return true;
         return root.validAVL();
     }
 
@@ -22,7 +24,9 @@ public class AVLTree {
     }
 
     public boolean find(int key) {
-        return false;
+        if(root == null)
+            return false;
+        return root.find(key);
     }
 
     /**

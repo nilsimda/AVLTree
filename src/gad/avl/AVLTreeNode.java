@@ -41,16 +41,6 @@ public class AVLTreeNode {
     }
 
     public int height() {
-        /*if(balance == -1 || balance == 0) {
-            if(left == null)
-                return 1;
-            return left.height() + 1;
-        }
-        else {
-            if(right == null)
-                return 1;
-            return right.height()+1;
-        }*/
         if(left == null && right == null)
             return 1;
         if(left == null)
@@ -62,12 +52,45 @@ public class AVLTreeNode {
     }
 
     public boolean validAVL() {
+        return isBalanced() && correctBalanceToHeight();
+    }
+    private boolean correctBalanceToHeight(){
+        return false;
+    }
+
+    public boolean isBalanced(){
+        int leftHeight = 0;
+        int rightHeight = 0;
+        if(left == null && right == null)
+            return true;
+        else if(left == null)
+            rightHeight = right.height();
+        else if(right == null)
+            leftHeight = left.height();
+        else{
+            leftHeight = left.height();
+            rightHeight = right.height();
+        }
+
+        if(Math.abs(rightHeight-leftHeight) <= 1)
+            return true;
+
         return false;
     }
 
     public boolean find(int key) {
-        // TODO...
-        return false;
+        return findHelper(this, key);
+    }
+
+    public static boolean findHelper(AVLTreeNode node, int key){
+        if(node == null)
+            return false;
+        if(key == node.key)
+            return true;
+        if(key > node.key)
+            return findHelper(node.right, key);
+        else
+            return findHelper(node.left, key);
     }
 
     // public ... insert(int key) {
