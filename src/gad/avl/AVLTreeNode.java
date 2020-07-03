@@ -147,7 +147,7 @@ public class AVLTreeNode {
     private AVLTreeNode leftRotation(AVLTreeNode root){
         AVLTreeNode temp = root.right;
 
-        root.right = temp.left;
+        root.right = temp.left; //right of root now points to left children of new root (temp)
         temp.left = root;
 
         root.balance = heightHelper(root.right) - heightHelper(root.left);
@@ -159,16 +159,16 @@ public class AVLTreeNode {
     private AVLTreeNode rightRotation(AVLTreeNode root){
         AVLTreeNode temp = root.left;
 
-        root.left = temp.right;
-        temp.right = root;
+        root.left = temp.right; //left of root now points to right children of new root (temp)
+        temp.right = root; //temp is now new root
 
-        root.balance = heightHelper(root.right) - heightHelper(root.left);
+        root.balance = heightHelper(root.right) - heightHelper(root.left); // update balances
         temp.balance = heightHelper(root.right) -heightHelper(root.left);
 
         return temp;
     }
 
-    public void updateBalance(AVLTreeNode node){
+    public void updateBalance(AVLTreeNode node){ //corrects balances at the end because they are wrong sometimes
         if(node == null)
             return;
 
