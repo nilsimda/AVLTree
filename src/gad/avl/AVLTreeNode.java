@@ -113,7 +113,6 @@ public class AVLTreeNode {
 
     public AVLTreeNode insert(int key) {
         basicInsert(this, key);
-        int balance = heightHelper(right)-heightHelper(left);
         if(Math.abs(balance) <= 1)
             return this;
         if(balance == +2){
