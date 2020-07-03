@@ -1,7 +1,10 @@
 package gad.avl;
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AVLTreeNode {
     private int key;
@@ -53,7 +56,21 @@ public class AVLTreeNode {
     }
 
     public boolean validAVL() {
-        return !hasCycle(this, new HashSet<AVLTreeNode>()) && isBalanced(this);
+        return !hasCycle(this, new HashSet<AVLTreeNode>()) && isBalanced(this) && isSorted();
+    }
+
+    private boolean isSorted(){
+        List<Integer> list = new ArrayList<>();
+        inorderTrav(this, list);
+        return list.stream().sorted().collect(Collectors.toList()).equals(list);
+    }
+
+    private void inorderTrav(AVLTreeNode root, List<Integer> list){
+        if(root == null)
+            return;
+        inorderTrav(root.left, list);
+        list.add(root.key);
+        inorderTrav(root.right, list);
     }
 
     private boolean hasCycle(AVLTreeNode node, HashSet<AVLTreeNode> visited){
@@ -79,9 +96,7 @@ public class AVLTreeNode {
         int rightHeight = heightHelper(node.right);
 
         return Math.abs(rightHeight - leftHeight) <= 1 &&
-                node.balance == rightHeight-leftHeight &&
-                (node.left == null ||node.left.key < node.key) &&
-                (node.right == null || node.right.key >= node.key) &&
+                //node.balance == rightHeight-leftHeight &&
                 isBalanced(node.left) && isBalanced(node.right);
     }
 
@@ -148,8 +163,8 @@ public class AVLTreeNode {
     }
 
     public static void main(String[] args) {
-        AVLTreeNode node1 = new AVLTreeNode(1);
-        AVLTreeNode node2 = new AVLTreeNode( 2);
+        AVLTreeNode node1 = new AVLTreeNode(2);
+        AVLTreeNode node2 = new AVLTreeNode( 1);
 
         node1.setRight(node2);
         //node2.setLeft(node1);
