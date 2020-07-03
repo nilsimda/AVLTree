@@ -96,7 +96,7 @@ public class AVLTreeNode {
         int rightHeight = heightHelper(node.right);
 
         return Math.abs(rightHeight - leftHeight) <= 1 &&
-                //node.balance == rightHeight-leftHeight &&
+                node.balance == rightHeight-leftHeight &&
                 isBalanced(node.left) && isBalanced(node.right);
     }
 
