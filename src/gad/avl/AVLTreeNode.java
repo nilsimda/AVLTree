@@ -77,9 +77,20 @@ public class AVLTreeNode {
             return findHelper(node.left, key);
     }
 
-    // public ... insert(int key) {
-    //
-    // }
+    public void insert(int key) {
+        insertHelper(this, key);
+    }
+
+    private void insertHelper(AVLTreeNode node, int key){
+        if(node == null) {
+            node = new AVLTreeNode(key);
+            return;
+        }
+        if(key < node.key)
+            insertHelper(node.left, key);
+        else
+            insertHelper(node.right, key);
+    }
 
     /**
      * Diese Methode wandelt den Baum in das Graphviz-Format um.

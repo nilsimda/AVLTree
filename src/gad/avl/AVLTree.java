@@ -21,6 +21,9 @@ public class AVLTree {
     }
 
     public void insert(int key) {
+        if(root == null)
+            root = new AVLTreeNode(key);
+        root.insert(key);
     }
 
     public boolean find(int key) {
