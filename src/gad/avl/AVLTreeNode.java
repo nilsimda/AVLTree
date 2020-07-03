@@ -63,7 +63,7 @@ public class AVLTreeNode {
         if(node == null)
             return true;
 
-        if((left != null && node.key <= left.key) || (right != null && node.key > right.key)){
+        if((left != null && node.key < left.key) || (right != null && node.key >= right.key)){
             return false;
         }
         return isSorted(node.left, left, node) && isSorted(node.right, node, right);
