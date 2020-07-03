@@ -57,7 +57,7 @@ public class AVLTreeNode {
     }
 
     private boolean hasCycle(AVLTreeNode node, HashSet<AVLTreeNode> visited){
-        if(visited.contains(node)) {
+        if(visited.contains(node) || flag) {
             flag = true;
             return true;
         }
@@ -78,7 +78,7 @@ public class AVLTreeNode {
         int leftHeight = heightHelper(node.left);
         int rightHeight = heightHelper(node.right);
 
-        return Math.abs(rightHeight - leftHeight) >= 1 &&
+        return Math.abs(rightHeight - leftHeight) <= 1 &&
                 node.balance == rightHeight-leftHeight &&
                 //node.left.key < node.key && node.right.key >= node.key &&
                 isBalanced(node.left) && isBalanced(node.right);
@@ -141,6 +141,11 @@ public class AVLTreeNode {
         return dotNode(sb, next);
     };
 
+    @Override
+    public String toString() {
+        return "Node: "+ key;
+    }
+
     public static void main(String[] args) {
         AVLTreeNode node1 = new AVLTreeNode(1);
         AVLTreeNode node2 = new AVLTreeNode( 2);
@@ -148,6 +153,6 @@ public class AVLTreeNode {
         node1.setRight(node2);
         //node2.setLeft(node1);
 
-        System.out.println(node1.hasCycle(node1, new HashSet<>()));
+        System.out.println(node1.validAVL());
     }
 }
