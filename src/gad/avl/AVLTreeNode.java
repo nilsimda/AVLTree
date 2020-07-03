@@ -12,6 +12,7 @@ public class AVLTreeNode {
     private AVLTreeNode left = null;
     private AVLTreeNode right = null;
     private boolean flag = false;
+    private AVLTreeNode node = this;
 
     public AVLTreeNode(int key) {
         this.key = key;
@@ -111,26 +112,36 @@ public class AVLTreeNode {
             return findHelper(node.left, key);
     }
 
-    public AVLTreeNode insert(int key) {
-        basicInsert(this, key);
-        if(Math.abs(balance) <= 1)
-            return this;
-        if(balance == +2){
-            if(right.balance >= 0)
-                return leftRotation(this);
+    public AVLTreeNode insert(AVLTreeNode node, int key) {
+        if(node == null) {
+            node = new AVLTreeNode(key);
+            return node;
+        }
+        if(key < node.key)
+            node.left = insert(node.left, key);
+        else {
+            node.right = insert(node.right, key);
+        }
+
+        node.balance = heightHelper(node.right) - heightHelper(node.left);
+
+        if(node.balance == +2){
+            if(node.right.balance >= 0)
+                return leftRotation(node);
             else{
-                this.right = rightRotation(this.right);
-                return leftRotation(this);
+                node.right = rightRotation(node.right);
+                return leftRotation(node);
             }
         }
-        else{
-            if(left.balance <= 0)
-                return rightRotation(this);
+        if (node.balance == -2){
+            if(node.left.balance <= 0)
+                return rightRotation(node);
             else{
-                this.left = leftRotation(this.left);
-                return rightRotation(this);
+                node.left = leftRotation(node.left);
+                return rightRotation(node);
             }
         }
+        return node;
     }
 
     private AVLTreeNode leftRotation(AVLTreeNode root){
@@ -139,7 +150,8 @@ public class AVLTreeNode {
         root.right = temp.left;
         temp.left = root;
 
-        updateBalance(temp);
+        root.balance = heightHelper(root.right) - heightHelper(root.left);
+        temp.balance = heightHelper(root.right) -heightHelper(root.left);
 
         return temp;
     }
@@ -150,38 +162,10 @@ public class AVLTreeNode {
         root.left = temp.right;
         temp.right = root;
 
-        updateBalance(temp);
+        root.balance = heightHelper(root.right) - heightHelper(root.left);
+        temp.balance = heightHelper(root.right) -heightHelper(root.left);
 
         return temp;
-    }
-
-    private void updateBalance(AVLTreeNode node){
-        if(node == null)
-            return;
-
-        int height = heightHelper(node.right) - heightHelper(node.left);
-        //System.out.println(right + " " + left);
-
-        if(height != node.balance)
-            node.balance = height;
-
-        updateBalance(node.left);
-        updateBalance(node.right);
-    }
-
-    private AVLTreeNode basicInsert(AVLTreeNode node, int key){
-        if(node == null) {
-            node = new AVLTreeNode(key);
-            return node;
-        }
-        if(key < node.key)
-            node.left = basicInsert(node.left, key);
-        else {
-            node.right = basicInsert(node.right, key);
-        }
-
-        updateBalance(node);
-        return node;
     }
 
     /**
@@ -223,6 +207,6 @@ public class AVLTreeNode {
         node1.setRight(node2);
         node1.setLeft(node3);
 
-        System.out.println(node1.insert(5));
+        //System.out.println(node1.insert(5));
     }
 }

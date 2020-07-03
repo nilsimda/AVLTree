@@ -25,7 +25,7 @@ public class AVLTree {
             root = new AVLTreeNode(key);
             return;
         }
-        root = root.insert(key);
+        root = root.insert(root, key);
     }
 
     public boolean find(int key) {
@@ -55,10 +55,13 @@ public class AVLTree {
 
     public static void main(String[] args) {
         AVLTree test = new AVLTree();
+
+        for(int i = 0; i <10; i++)
+            test.insert(i);
+        /*test.insert(1);
         test.insert(1);
         test.insert(1);
-        test.insert(1);
-        test.insert(1);
+        test.insert(1);*/
         //test.insert(3);
         System.out.println(test.validAVL());
         System.out.println(test.getRoot().getBalance());
