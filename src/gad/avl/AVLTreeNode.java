@@ -117,7 +117,7 @@ public class AVLTreeNode {
         if(Math.abs(balance) <= 1)
             return this;
         if(balance == +2){
-            if(heightHelper(right.right)- heightHelper(right.left) >= 0)
+            if(right.balance >= 0)
                 return leftRotation(this);
             else{
                 this.right = rightRotation(this.right);
@@ -125,7 +125,7 @@ public class AVLTreeNode {
             }
         }
         else{
-            if(heightHelper(left.right) -heightHelper(left.left) <= 0)
+            if(left.balance <= 0)
                 return rightRotation(this);
             else{
                 this.left = leftRotation(this.left);
