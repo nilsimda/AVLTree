@@ -54,12 +54,12 @@ public class AVLTree {
     public static void main(String[] args) {
         AVLTree test = new AVLTree();
         test.insert(1);
-        test.insert(2);
-        //test.insert(3);
-        //test.insert(4);
+        test.insert(5);
+        test.insert(3);
+        test.insert(4);
+        //test.insert(2);
         System.out.println(test.validAVL());
         System.out.println(test.getRoot().getBalance());
-        //test.insert(5);
 
         System.out.println(test.dot());
     }

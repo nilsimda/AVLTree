@@ -120,7 +120,7 @@ public class AVLTreeNode {
             if(heightHelper(right.right)- heightHelper(right.left) >= 0)
                 return leftRotation(this);
             else{
-                AVLTreeNode temp = rightRotation(this.right);
+                this.right = rightRotation(this.right);
                 return leftRotation(this);
             }
         }
@@ -128,7 +128,7 @@ public class AVLTreeNode {
             if(heightHelper(left.right) -heightHelper(left.left) <= 0)
                 return rightRotation(this);
             else{
-                AVLTreeNode temp = leftRotation(this.left);
+                this.left = leftRotation(this.left);
                 return rightRotation(this);
             }
         }
