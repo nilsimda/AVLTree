@@ -26,6 +26,7 @@ public class AVLTree {
             return;
         }
         root = root.insert(root, key);
+        root.updateBalance(root);
     }
 
     public boolean find(int key) {
