@@ -56,17 +56,17 @@ public class AVLTreeNode {
     }
 
     public boolean validAVL() {
-        return !hasCycle(this, new HashSet<AVLTreeNode>()) && isBalanced(this) && isSorted(this);
+        return !hasCycle(this, new HashSet<AVLTreeNode>()) && isBalanced(this) && isSorted(this, null,null);
     }
 
-    private boolean isSorted(AVLTreeNode node){
+    private boolean isSorted(AVLTreeNode node, AVLTreeNode left, AVLTreeNode right){
         if(node == null)
             return true;
 
-        if((node.left != null && node.key <= node.left.key) || (node.right != null && node.key > node.right.key)){
+        if((left != null && node.key <= left.key) || (right != null && node.key > right.key)){
             return false;
         }
-        return isSorted(node.left) && isSorted(node.right);
+        return isSorted(node.left, left, node) && isSorted(node.right, node, right);
     }
 
     private boolean hasCycle(AVLTreeNode node, HashSet<AVLTreeNode> visited){
